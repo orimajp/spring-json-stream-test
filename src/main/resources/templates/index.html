@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>トップ</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Json Stream Test</a>
+</nav>
+<div class="container">
+    <div class="main-content">
+        <div class="row justify-content-md-center">
+            <div class="col col-md-6">
+                <div class="card">
+                    <h5 class="card-header">テストデータ登録</h5>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-block btn-primary" id="regist">テストデータ登録</button>
+                    </div>
+                    <div class="card-footer">
+                        <span id="regist-result"></span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-header">通常検索テスト</h5>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-block btn-success" id="normal-search">通常検索</button>
+                    </div>
+                    <div class="card-footer">
+                        <span id="normal-search-result"></span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-header">ストリーム検索テスト</h5>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-block btn-success" id="stream-search">ストリーム検索</button>
+                    </div>
+                    <div class="card-footer">
+                        <span id="stream-search-result"></span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-header">登録データ件数取得</h5>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-block btn-info" id="data-count">登録データ件数取得</button>
+                    </div>
+                    <div class="card-footer">
+                        <span id="data-count-result"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

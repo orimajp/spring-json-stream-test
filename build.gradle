@@ -1,0 +1,84 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id "io.freefair.lombok" version "4.1.3"
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+
+        inheritOutputDirs = false
+        outputDir = compileJava.destinationDir
+        testOutputDir = compileTestJava.destinationDir
+    }
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.seasar.doma:doma:2.25.1"
+    annotationProcessor "org.seasar.doma:doma:2.25.1"
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.3'
+    implementation 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
+
+    implementation 'com.github.rozidan:modelmapper-spring-boot-starter:2.3.1'
+
+    implementation 'org.webjars:jquery:3.4.1'
+    implementation 'org.webjars:bootstrap:4.3.1'
+    implementation 'org.webjars:webjars-locator:0.37'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Doma settings
+
+// https://doma.readthedocs.io/en/stable/build/#build-with-gradle
+task copyDomaResources(type: Sync)  {
+    from sourceSets.main.resources.srcDirs
+    into compileJava.destinationDir
+    include 'doma.compile.config'
+    include 'META-INF/**/*.sql'
+    include 'META-INF/**/*.script'
+}
+
+compileJava {
+    // Depend on the above task
+    dependsOn copyDomaResources
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+    dependsOn copyDomaResources
+    // Disable the annotation processors during the test run
+//  options.compilerArgs = ['-proc:none']
+}
