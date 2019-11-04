@@ -8,6 +8,7 @@ import com.example.springjsonstreamtest.presentation.response.CountResponse;
 import com.example.springjsonstreamtest.presentation.response.NormalResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class TestService {
 //   private static final Integer MAX_RECORDS = 1;
     private static final Integer MAX_RECORDS = 100000;
 
+    @Transactional
     public void registTestData() {
         final List<RegistTestData> registTestData = new ArrayList<>();
         for (int i = 0; i < MAX_RECORDS; i++) {

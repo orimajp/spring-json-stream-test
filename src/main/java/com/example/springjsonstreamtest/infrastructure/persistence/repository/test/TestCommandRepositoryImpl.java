@@ -6,11 +6,10 @@ import com.example.springjsonstreamtest.infrastructure.persistence.doma.dao.Test
 import com.example.springjsonstreamtest.infrastructure.persistence.doma.entity.TestData;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,9 +20,10 @@ public class TestCommandRepositoryImpl implements TestCommandRepository {
     private final ModelMapper modelMapper;
 
     @Override
-    public int[] batchInsert(List<RegistTestData> registTestData) {
-        final Type listType = new TypeToken<List<TestData>>() {}.getType();
-        final List<TestData> testData = modelMapper.map(registTestData, listType);
+    public int[] batchInsert(List<RegistTestData> registTestDatas) {
+        final List<TestData> testData = registTestDatas.stream()
+                .map(registTestData -> modelMapper.map(registTestData, TestData.class))
+                .collect(Collectors.toList());
         return testDataDao.batchInsert(testData);
     }
 
